@@ -7,8 +7,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class BaseConfig(object):
     load_dotenv()
-    SECRET_KEY = os.environ.get('SECRET_KEY')
-    #
+    # SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY = os.urandom(32)
     # # SQLALCHEMY_TRACK_MODIFICATIONS决定是否追踪对象的修改
     # SQLALCHEMY_TRACK_MODIFICATIONS = False
     #

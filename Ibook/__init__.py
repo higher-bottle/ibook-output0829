@@ -16,6 +16,7 @@ def create_app(config_name=None):
 
     app = Flask(__name__)
     app.config.from_object(config[config_name])
+    app.config['SECRET_KEY'] = config.SECRET_KEY
 
     # 注册
     register_commands(app)  # 自定义shell命令
