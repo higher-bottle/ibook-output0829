@@ -7,8 +7,8 @@ name = "pypi"
 python-dotenv = "*"
 openpyxl = "*"
 flask-sslify = "*"
-gunicorn = "*"
 psycopg2 = "*"
+gunicorn = "*"
 
 [dev-packages]
 
