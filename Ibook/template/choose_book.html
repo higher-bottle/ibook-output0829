@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% block style %}
+    <style>
+        table {
+              width: 100%; /* 设置表格总宽度 */
+            }
+            .col1 {
+              width: 300px;
+            }
+            .col2 {
+              width: 200px;
+            }
+         .scrollable-container {
+            margin-bottom: 10px;
+            max-height: 500px;
+             min-height: 300px;
+            width: 100%; /* Make the container full width */
+             {#width: 900px;#}
+            overflow-y: auto;
+            word-wrap: break-word;
+            {#display: flex;#}
+            justify-content: center;
+         }
+         .scrollable-container table thead tr th{
+             position: sticky;
+             top: 0;
+             z-index: 100;
+             background-color: #ffffff;
+         }
+
+    </style>
+{% endblock style %}
+{% block content %}
+<div class="text-center mx-auto" style="align-items: center;justify-content: center;margin-top: 20px">
+    <form method="post">
+        {{ sync_form.csrf_token }}
+        <button class="btn btn-primary" type="submit">Sync</button>
+    </form>
+</div>
+
+<div class="container" style="margin-top: 20px">
+  <div class="col-12">
+    <div class="">
+    <div class="d-flex justify-content-between">
+        <!-- Search Bar -->
+         <div style="justify-content: flex-start;display: flex">
+              <input id="searchInput" type="text" class="form-control search-bar" placeholder="Search for books..."
+              style="width: 300px;margin-bottom: 5px">
+         </div>
+        <!-- Select All Checkbox-->
+        <div>
+            <input type="checkbox" class="form-check-input" id="select-all">
+            <label class="form-check-label">Select All</label>
+        </div>
+    </div>
+
+    <!-- Book Table-->
+      <form action="{{ url_for('ibook.export') }}">
+      <div class="scrollable-container">
+          <!-- 这里是你的滚动内容 -->
+      {{ export_form.csrf_token }}
+      <!-- Search Bar on a Separate Line -->
+      <table id="sync-book-table" class="table table-striped" style="table-layout: fixed">
+          <thead>
+{#          <col style="width: 100px;"/>#}
+            <tr>
+              <th scope="col" style="width: 60px">#</th>
+              <th scope="col" style="width: 400px">Book Title</th>
+              <th scope="col" style="width: 100px">Author</th>
+              <th scope="col" style="width: 80px;text-align: center">
+                  Type
+                  <div class="dropdown" style="display: inline">
+                      <i class="bi bi-filter-right filter-icon" id="type_filter-icon" role="button" data-bs-toggle="dropdown"></i>
+                      <ul class="dropdown-menu">
+                          <li class="dropdown-item type-filter" value="book">Book</li>
+                          <li class="dropdown-item type-filter" value="pdf">PDF</li>
+                          <li class="dropdown-item type-filter" value="">All</li>
+                      </ul>
+                  </div>
+              </th>
+                <th scope="col" style="width: 100px;text-align: center">
+                    # of Notes
+                    <div class="dropdown" style="display: inline">
+                      <i class="bi bi-filter-right filter-icon" id="note_filter-icon" role="button" data-bs-toggle="dropdown"></i>
+                      <ul class="dropdown-menu">
+                          <li class="dropdown-item note-filter" value="have notes">Have Notes</li>
+{#                          <li class="dropdown-item note-filter" value="-">No Note</li>#}
+                          <li class="dropdown-item note-filter" value="">All</li>
+                      </ul>
+                  </div>
+                </th>
+              <th scope="col" style="width: 50px;text-align: center">✅</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for item in book_data.values %}
+                <tr>
+                    <th scope="row">{{ item[0] }}</th>
+                    <td class="col1 book-name-row">{{ item[1] }}</td>
+                    <td>{{ item[2] }}</td>
+                    <td class="book-type-row" style="text-align:center">{{ item[3] }}</td>
+                    <td class="book-note-row" style="text-align:center">{{ item[5] }}</td>
+                    <td style="text-align: center">
+                        <input class="form-check-input select-book" type="checkbox" name="book_id"
+                               id="{{ item[1] }}"
+                               value="{{ item[4] }}"
+                               style="width: 20px !important; height: 20px !important;position: relative">
+                    </td>
+                </tr>
+            {% endfor %}
+          </tbody>
+      </table>
+
+        <!-- 更多内容以启用滚动 -->
+      </div>
+      <div style="justify-content: flex-end;display: flex">
+          <button class="btn btn-success" type="submit" >Export</button>
+      </div>
+
+
+        <div style="align-items: flex-start;display: flex;gap: 10px">
+            <div >Selected:</div>
+            <div class="selectedList"></div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock content %}
