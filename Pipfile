@@ -9,6 +9,7 @@ openpyxl = "*"
 flask-sslify = "*"
 psycopg2 = "*"
 gunicorn = "*"
+flask-sqlalchemy = "*"
 
 [dev-packages]
 
