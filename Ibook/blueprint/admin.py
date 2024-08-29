@@ -7,8 +7,6 @@ from Ibook.Forms import SyncBooks, ExportNotes
 from Ibook.Extension import db
 from Ibook.Models import Books, Notes
 import openpyxl
-# from sqlalchemy import func
-# from Forms import
 
 import sqlite3
 import pandas as pd
@@ -121,7 +119,7 @@ def export():
 @ibook_bp.before_request
 def before_request():
     g.export_date = datetime.today().strftime('%Y%m%d%H%M')
-    g.file_name = os.path.join(os.getcwd(), f'Highlights Export-{g.export_date}.xlsx')
+    g.file_name = os.path.join(os.getcwd(), 'Output', f'Highlights Export-{g.export_date}.csv')
 
 
 @ibook_bp.route('/download', methods=['GET', 'POST'])
