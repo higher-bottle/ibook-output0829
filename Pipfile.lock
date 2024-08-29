@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0e3754cd636f4be8dd0693976b4e4e7c8330bf8223285eae58bdb59b6ae708a1"
+            "sha256": "513880b57b2ba1b261505d1b79d53e59997a9461ff26ac24efa7fbc29e22d6dc"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -63,6 +63,15 @@
             ],
             "index": "pypi",
             "version": "==0.1.5"
+        },
+        "flask-wtf": {
+            "hashes": [
+                "sha256:8bb269eb9bb46b87e7c8233d7e7debdf1f8b74bf90cc1789988c29b37a97b695",
+                "sha256:fa6793f2fb7e812e0fe9743b282118e581fb1b6c45d414b8af05e659bd653287"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.8'",
+            "version": "==1.2.1"
         },
         "gunicorn": {
             "hashes": [
@@ -271,6 +280,14 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==3.0.4"
+        },
+        "wtforms": {
+            "hashes": [
+                "sha256:bf831c042829c8cdbad74c27575098d541d039b1faa74c771545ecac916f2c07",
+                "sha256:f8d76180d7239c94c6322f7990ae1216dae3659b7aa1cee94b6318bdffb474b9"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==3.1.2"
         }
     },
     "develop": {}
