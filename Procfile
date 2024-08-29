@@ -1,1 +1,1 @@
-web:gunicorn Ibook:create_app()
+web: gunicorn Ibook:create_app
