@@ -6,7 +6,7 @@ from Ibook.blueprint.admin import ibook_bp
 # from Forms import
 
 from Ibook.settings import config
-from Ibook.Extension import db, csrf, sslify
+from Ibook.Extension import db, csrf
 from Ibook.commands import register_commands
 
 
@@ -14,7 +14,7 @@ def create_app(config_name=None):
     if config_name is None:
         config_name = os.getenv('FLASK_CONFIG', 'development')
 
-    app = Flask('Ibook')
+    app = Flask(__name__)
     app.config.from_object(config[config_name])
 
     # 注册
@@ -37,7 +37,7 @@ def register_extensions(app):
     """register Flask extensions"""
     db.init_app(app)
     csrf.init_app(app)
-    sslify.init_app(app)
+    # sslify.init_app(app)
     with app.app_context():
         db.drop_all()
         db.create_all()
