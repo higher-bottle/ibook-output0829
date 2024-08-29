@@ -11,6 +11,8 @@ psycopg2 = "*"
 gunicorn = "*"
 flask-sqlalchemy = "*"
 flask-wtf = "*"
+pandas = "*"
+flask = "*"
 
 [dev-packages]
 
