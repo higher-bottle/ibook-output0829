@@ -1,11 +1,12 @@
 import os
-from flask import Flask, render_template
-
+from flask import Flask, render_template, request
+import logging
+from logging.handlers import RotatingFileHandler
 from Ibook.blueprint.admin import ibook_bp
 # from Forms import
 
 from Ibook.settings import config
-from Ibook.Extension import db, csrf
+from Ibook.Extension import db, csrf, sslify
 from Ibook.commands import register_commands
 
 
@@ -36,6 +37,7 @@ def register_extensions(app):
     """register Flask extensions"""
     db.init_app(app)
     csrf.init_app(app)
+    sslify.init_app(app)
     with app.app_context():
         db.drop_all()
         db.create_all()
@@ -44,9 +46,25 @@ def register_extensions(app):
 
 def register_logging(app):
     """register logging"""
-    ...
+    app.logger.setLevel(logging.INFO)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler = RotatingFileHandler('logs/ibook.log', maxBytes=10 * 1024 * 1024, backupCount=10)
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.INFO)
 
+    if not app.debug:
+        app.logger.addHandler(file_handler)
 
+    # class RequestFormatter(logging.Formatter):
+    #     def format(self, record):
+    #         record.url = request.url
+    #         record.remote_addr = request.remote_addr
+    #         return super(RequestFormatter, self).format(record)
+    #
+    # request_formatter = RequestFormatter(
+    #     '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
+    #     '%(levelname)s in %(module)s: %(message)s'
+    # )
 # def register_error_handler(app):
 #     @app.errorhandler(404)
 #     def bad_request(e):

@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 python-dotenv = "*"
 openpyxl = "*"
+flask-sslify = "*"
+gunicorn = "*"
+psycopg2 = "*"
 
 [dev-packages]
 
